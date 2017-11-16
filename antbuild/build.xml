@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<project default="main">
+
+    <property name="message" value="Building the .jar file." />
+    <property name="src" location="source" />
+    <property name="docs" location="docs" />
+    <property name="output" location="bin" />
+
+    <target name="main" depends="delete,init, compile, doc,package">
+        <echo>
+            ${message}
+        </echo>
+    </target>
+
+<target name="delete">
+        <delete dir="${output}" />
+        <delete dir="${docs}" />
+    </target>
+
+  
+    <target name="init">
+        <mkdir dir="${output}" />
+        <mkdir dir="${docs}" />
+    </target>
+  
+    <target name="compile">
+        <javac srcdir="${src}" destdir="${output}" />
+    </target>
+
+    <target name="doc">
+        <javadoc 
+            sourcefiles="${src}/Project.java"
+            destdir="${docs}"
+            author="true"
+            version="true"
+            use="true"
+            windowtitle="Project API">
+            <doctitle><![CDATA[<h1>Project API</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2005</i>]]></bottom>
+        </javadoc>
+    </target>
+
+    <target name="package">
+        <jar destfile="${output}/Project.jar" basedir="${output}" includes="*.class" />
+    </target>
+
+</project>
